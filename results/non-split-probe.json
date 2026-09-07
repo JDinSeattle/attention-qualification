@@ -1,0 +1,189 @@
+{
+  "environment": {
+    "git": {
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "returncode": 128,
+      "stderr": "fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n",
+      "stdout": "HEAD\n"
+    },
+    "gpu": {
+      "argv": [
+        "nvidia-smi",
+        "--query-gpu=name,uuid,driver_version,compute_cap,pstate,temperature.gpu,clocks.sm,clocks.mem,power.draw,power.limit,memory.total,memory.used",
+        "--format=csv"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "name, uuid, driver_version, compute_cap, pstate, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.draw [W], power.limit [W], memory.total [MiB], memory.used [MiB]\nNVIDIA GeForce RTX 4090, GPU-048ba00a-2056-d3c0-6309-91c78ab69d63, 595.84, 8.9, P2, 47, 2805 MHz, 10251 MHz, 143.69 W, 450.00 W, 24564 MiB, 10200 MiB\n"
+    },
+    "measurement_policy": {
+      "clock_changes": false,
+      "display_gpu": true,
+      "scope": "one GPU; unlocked clocks; no cross-architecture claim"
+    },
+    "nvcc": {
+      "argv": [
+        "nvcc",
+        "--version"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Fri_May_08_10:53:34_AM_PDT_2026\nCuda compilation tools, release 13.2, V13.2.86\nBuild cuda_13.2.r13.2/compiler.37953736_0\n"
+    },
+    "packages": {
+      "cuda-bindings": "13.2.0",
+      "cuda-python": "13.2.0",
+      "cupy-cuda13x": "14.2.0",
+      "flashinfer-python": "0.6.18.post1",
+      "numpy": "2.5.3",
+      "nvidia-cuda-runtime": "13.0.96",
+      "nvidia-cutlass-dsl": "4.7.1",
+      "pyarrow": "25.0.1",
+      "pylibcudf-cu13": "26.8.1",
+      "pytest": "9.1.1",
+      "rmm-cu13": "26.8.0",
+      "torch": "2.13.0",
+      "triton": "3.7.1"
+    },
+    "platform": "Linux-7.0.0-29-generic-x86_64-with-glibc2.43",
+    "python": "3.13.15 (main, Aug  7 2026, 02:25:50) [Clang 22.1.3 ]",
+    "source_digest": "01dbd0fde9be70d16bee4ae72270dbcf043c3b5570f54dc1f3670e294b65958d",
+    "source_files": {
+      "attention.py": "4f6d4be28c43a5adf6597d313c4f875e0d4df7a7c95a7de8efac4ec62ac5e1b7",
+      "evidence.py": "35deb32fbea513d5b22c1fa1307b9b8e3c34c379918f4ef9c10935e7149cd15d",
+      "manifests/corpus.json": "8b7bb38b78c91bbbea374fcce9c251adf35e703280c3bfea784a1e3b98989b29",
+      "manifests/project.json": "f19bf0269dd36b3192e7f9949fcc0dd186d2f446d034150f41bc2bafff01b08a",
+      "profile.py": "a134e3b50f4eaa56da241a1962303596ba7c7963b76d7c527d0052b28b654f7d",
+      "qualification.py": "ed46597bac37df74b73ddd794ee8a5371c59045f0aea7ef5798e1960ca138887",
+      "reduce.py": "f5a1420ba2a5c3f3bc7ca0268c89a8962d080b23275097f92096f64c7aad2fc2",
+      "requirements.lock": "88f1a182980df753593b6779cc9ad70fcfc5aaf1fd4ffed658823c94a9950504",
+      "scripts/reproduce.sh": "a23f37d9305b49f30ac81c58d4c0a6da34d6e50cd0c326ea44b201b4ff3f4301",
+      "scripts/run.py": "4fff5ac535d28f856c1983a7df12f305c7fda68684e9e31cf23f7f53f25bb729",
+      "scripts/summarize.py": "043cfbfc23ebb08f6744920246b9ea0550b83174de5dbaf7e8cc776c2e3945ca",
+      "tests/test_evidence.py": "708ffbca5ab111b03109cf196ff96e9a0ba2c1a968bdee30d6ddd43bf4d138b2",
+      "tests/test_reference.py": "b5c444001a58e4b64db6af98a55fb472dddb9b9247478ed0d422d590236df602"
+    },
+    "utc": "2026-09-07T03:37:41.794345+00:00"
+  },
+  "records": [
+    {
+      "case": "longer-kv",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x7d9e04512020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 9.059906005859375e-05,
+        "max_scaled_error": 0.00553626986220479,
+        "p99_abs": 5.9776357375085354e-05,
+        "rms": 2.5185354388668202e-05
+      },
+      "output": {
+        "max_abs": 0.00014859437942504883,
+        "max_scaled_error": 0.03581155091524124,
+        "p99_abs": 6.918585859239101e-05,
+        "rms": 2.359690006414894e-05
+      },
+      "physical_page_indices": [
+        1,
+        2,
+        12,
+        25,
+        3,
+        17,
+        14,
+        11,
+        20,
+        21,
+        10,
+        16,
+        13,
+        24,
+        9,
+        22,
+        0,
+        4,
+        6,
+        18,
+        19,
+        7,
+        8,
+        15,
+        5,
+        23
+      ],
+      "reference_cpu_ms": 5.074292996141594,
+      "seed": 1729
+    },
+    {
+      "case": "longer-kv",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x7d9e04512020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 7.62939453125e-05,
+        "max_scaled_error": 0.0046777925454080105,
+        "p99_abs": 5.825520202051848e-05,
+        "rms": 2.3183831217465922e-05
+      },
+      "output": {
+        "max_abs": 0.00018170475959777832,
+        "max_scaled_error": 0.04228049889206886,
+        "p99_abs": 6.783741991966963e-05,
+        "rms": 2.3047890863381326e-05
+      },
+      "physical_page_indices": [
+        13,
+        23,
+        12,
+        3,
+        5,
+        4,
+        0,
+        24,
+        7,
+        2,
+        1,
+        6,
+        21,
+        9,
+        8,
+        20,
+        17,
+        14,
+        11,
+        25,
+        18,
+        19,
+        16,
+        22,
+        15,
+        10
+      ],
+      "reference_cpu_ms": 0.8119220001390204,
+      "seed": 2718
+    }
+  ],
+  "status": "passed"
+}

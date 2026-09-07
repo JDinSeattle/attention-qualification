@@ -1,0 +1,23 @@
+{
+  "kind": "synthetic mutation, not an upstream defect",
+  "mutation": "head-map",
+  "seed": 1729,
+  "spec": {
+    "id": "ragged-tails",
+    "qo": [
+      7
+    ],
+    "kv": [
+      33
+    ],
+    "hq": 8,
+    "hkv": 2,
+    "d": 64,
+    "page": 16,
+    "scale": 0.17,
+    "window": -1
+  },
+  "retained_indices": [
+    2
+  ]
+}

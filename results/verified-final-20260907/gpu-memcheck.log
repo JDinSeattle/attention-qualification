@@ -1,0 +1,33 @@
+========= COMPUTE-SANITIZER
+========= CUDA API Error: Duplicate entry kernels named "_ZN10flashinfer41PersistentVariableLengthMergeStatesKernelILj8ELj16ELj8ELj4E6__halfS1_iEEvPT3_PfPT5_PT4_S4_jPjj" detected. The Runtime will use the one that was registered first
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame:  [0x24cd6] in libcudart.so.13
+=========         Host Frame:  [0x26c3a] in libcudart.so.13
+=========         Host Frame:  [0x27340] in libcudart.so.13
+=========         Host Frame:  [0x2741d] in libcudart.so.13
+=========         Host Frame:  [0xfa2d] in libcudart.so.13
+=========         Host Frame: cudaOccupancyMaxActiveBlocksPerMultiprocessorWithFlags [0x503d8] in libcudart.so.13
+=========         Host Frame: cudaError flashinfer::VariableLengthMergeStates<__half, __half, int>(__half*, float*, int*, __half*, float*, unsigned int, unsigned int*, unsigned int, unsigned int, bool, CUstream_st*) [0x5edc5] in batch_prefill_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_128_head_dim_vo_128_posenc_0_use_swa_False_use_logits_cap_False_f16qk_False.so
+=========         Host Frame: cudaError flashinfer::BatchPrefillWithPagedKVCacheDispatched<128u, 128u, 128u, (flashinfer::PosEncodingMode)0, false, (flashinfer::MaskMode)1, flashinfer::DefaultAttention<false, false, false, false>, PagedParams>(PagedParams, PagedParams::DTypeO*, float*, bool, CUstream_st*) [0x700b9] in batch_prefill_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_128_head_dim_vo_128_posenc_0_use_swa_False_use_logits_cap_False_f16qk_False.so
+=========         Host Frame: BatchPrefillWithPagedKVCacheRun(tvm::ffi::TensorView, tvm::ffi::TensorView, tvm::ffi::Array<long, void>, tvm::ffi::TensorView, tvm::ffi::TensorView, tvm::ffi::TensorView, tvm::ffi::TensorView, tvm::ffi::TensorView, tvm::ffi::TensorView, tvm::ffi::TensorView, tvm::ffi::TensorView, tvm::ffi::Optional<tvm::ffi::TensorView, void>, long, long, long, bool, tvm::ffi::Optional<tvm::ffi::Tensor, void>, tvm::ffi::Optional<tvm::ffi::Tensor, void>, tvm::ffi::Optional<tvm::ffi::Tensor, void>, tvm::ffi::Optional<tvm::ffi::Tensor, void>, tvm::ffi::Optional<tvm::ffi::Tensor, void>, tvm::ffi::Optional<tvm::ffi::Tensor, void>, tvm::ffi::Optional<tvm::ffi::Tensor, void>, tvm::ffi::Optional<tvm::ffi::Tensor, void>, double, double, double, double, long) [0x962b5] in batch_prefill_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_128_head_dim_vo_128_posenc_0_use_swa_False_use_logits_cap_False_f16qk_False.so
+=========         Host Frame: __tvm_ffi_paged_run [0xa4c88] in batch_prefill_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_128_head_dim_vo_128_posenc_0_use_swa_False_use_logits_cap_False_f16qk_False.so
+=========         Host Frame:  [0x164e2e] in libtvm_ffi.so
+=========         Host Frame:  [0x1647ab] in libtvm_ffi.so
+=========         Host Frame:  [0xc4460] in core.cpython-313-x86_64-linux-gnu.so
+=========         Host Frame: _PyEval_EvalFrameDefault [0x141b287] in python
+=========         Host Frame: _PyObject_Call_Prepend [0x14ed7b2] in python
+=========         Host Frame: slot_tp_call [0x14ed6f5] in python
+=========         Host Frame: _PyEval_EvalFrameDefault [0x141b287] in python
+=========         Host Frame: PyEval_EvalCode [0x14a9be7] in python
+=========         Host Frame: run_eval_code_obj [0x14cc32a] in python
+=========         Host Frame: run_mod.llvm.3818922755909802511 [0x14cc21c] in python
+=========         Host Frame: _PyRun_File [0x162345b] in python
+=========         Host Frame: _PyRun_SimpleFile [0x1622680] in python
+=========         Host Frame: _PyRun_AnyFile [0x1622189] in python
+=========         Host Frame: pymain_run_file_obj [0x16220b6] in python
+=========         Host Frame: pymain_run_file [0x1621f9d] in python
+=========         Host Frame: Py_RunMain [0x155a4db] in python
+=========         Host Frame: pymain_main.llvm.9033154338732943700 [0x155a174] in python
+=========         Host Frame: main [0x1559f85] in python
+========= 
+========= ERROR SUMMARY: 1 error

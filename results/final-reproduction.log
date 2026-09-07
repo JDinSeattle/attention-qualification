@@ -1,0 +1,14 @@
+[C] cpu-tests
+[C] gpu-check
+[C] gpu-memcheck
+Traceback (most recent call last):
+  File "/home/postedism/Desktop/kernal libraries/C-attention-qualification/scripts/run.py", line 74, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/postedism/Desktop/kernal libraries/C-attention-qualification/scripts/run.py", line 45, in main
+    else:run('gpu-memcheck',sanitizer+[py,'qualification.py','check','--output',str(out/'sanitizer-check.json')])
+         ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/postedism/Desktop/kernal libraries/C-attention-qualification/scripts/run.py", line 25, in run
+    if code:raise RuntimeError(f'{label} failed with exit {code}; inspect {out/(label+".log")}')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: gpu-memcheck failed with exit 99; inspect /home/postedism/Desktop/kernal libraries/C-attention-qualification/results/verified-final-20260907/gpu-memcheck.log

@@ -1,0 +1,1456 @@
+{
+  "claim": "FA2 runtime only; no speedup claim against CPU reference",
+  "environment": {
+    "git": {
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "returncode": 128,
+      "stderr": "fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n",
+      "stdout": "HEAD\n"
+    },
+    "gpu": {
+      "argv": [
+        "nvidia-smi",
+        "--query-gpu=name,uuid,driver_version,compute_cap,pstate,temperature.gpu,clocks.sm,clocks.mem,power.draw,power.limit,memory.total,memory.used",
+        "--format=csv"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "name, uuid, driver_version, compute_cap, pstate, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.draw [W], power.limit [W], memory.total [MiB], memory.used [MiB]\nNVIDIA GeForce RTX 4090, GPU-048ba00a-2056-d3c0-6309-91c78ab69d63, 595.84, 8.9, P2, 48, 2805 MHz, 10251 MHz, 113.54 W, 450.00 W, 24564 MiB, 9485 MiB\n"
+    },
+    "measurement_policy": {
+      "clock_changes": false,
+      "display_gpu": true,
+      "scope": "one GPU; unlocked clocks; no cross-architecture claim"
+    },
+    "nvcc": {
+      "argv": [
+        "nvcc",
+        "--version"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Fri_May_08_10:53:34_AM_PDT_2026\nCuda compilation tools, release 13.2, V13.2.86\nBuild cuda_13.2.r13.2/compiler.37953736_0\n"
+    },
+    "packages": {
+      "cuda-bindings": "13.2.0",
+      "cuda-python": "13.2.0",
+      "cupy-cuda13x": "14.2.0",
+      "flashinfer-python": "0.6.18.post1",
+      "numpy": "2.5.3",
+      "nvidia-cuda-runtime": "13.0.96",
+      "nvidia-cutlass-dsl": "4.7.1",
+      "pyarrow": "25.0.1",
+      "pylibcudf-cu13": "26.8.1",
+      "pytest": "9.1.1",
+      "rmm-cu13": "26.8.0",
+      "torch": "2.13.0",
+      "triton": "3.7.1"
+    },
+    "platform": "Linux-7.0.0-29-generic-x86_64-with-glibc2.43",
+    "python": "3.13.15 (main, Aug  7 2026, 02:25:50) [Clang 22.1.3 ]",
+    "source_digest": "c8e2d7bef7ed999a4974be477a3f3c3fc1d8ce991503f1619126ff45a73dba04",
+    "source_files": {
+      "attention.py": "4f6d4be28c43a5adf6597d313c4f875e0d4df7a7c95a7de8efac4ec62ac5e1b7",
+      "evidence.py": "35deb32fbea513d5b22c1fa1307b9b8e3c34c379918f4ef9c10935e7149cd15d",
+      "manifests/corpus.json": "bd7ce6856fc8aec3835de330d115a98856b755f4b1ad81a3209a4db565c8ae6d",
+      "manifests/project.json": "f19bf0269dd36b3192e7f9949fcc0dd186d2f446d034150f41bc2bafff01b08a",
+      "profile.py": "a134e3b50f4eaa56da241a1962303596ba7c7963b76d7c527d0052b28b654f7d",
+      "qualification.py": "9fede0b1dca0dd5df892e2ec03446295cd738a7fe133f3d3ca53d57e4d856ca2",
+      "reduce.py": "f5a1420ba2a5c3f3bc7ca0268c89a8962d080b23275097f92096f64c7aad2fc2",
+      "requirements.lock": "88f1a182980df753593b6779cc9ad70fcfc5aaf1fd4ffed658823c94a9950504",
+      "scripts/reproduce.sh": "a23f37d9305b49f30ac81c58d4c0a6da34d6e50cd0c326ea44b201b4ff3f4301",
+      "scripts/run.py": "4fff5ac535d28f856c1983a7df12f305c7fda68684e9e31cf23f7f53f25bb729",
+      "scripts/summarize.py": "ae072d95932ef9af7f3a0333b5f61f2f0ff7fd3f05a4a0947e14a5ab32ed0ca8",
+      "tests/test_evidence.py": "708ffbca5ab111b03109cf196ff96e9a0ba2c1a968bdee30d6ddd43bf4d138b2",
+      "tests/test_reference.py": "b5c444001a58e4b64db6af98a55fb472dddb9b9247478ed0d422d590236df602"
+    },
+    "utc": "2026-09-07T03:39:15.523784+00:00"
+  },
+  "process_contract": "one case per process; disable_split_kv=True; automatic split-KV remains unqualified",
+  "records": [
+    {
+      "case": "singleton",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x7d0a72716020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 2.9802322387695312e-08,
+        "max_scaled_error": 1.0656880476744846e-05,
+        "p99_abs": 2.9504299448035454e-08,
+        "rms": 2.107342389479072e-08
+      },
+      "output": {
+        "max_abs": 0.0,
+        "max_scaled_error": 0.0,
+        "p99_abs": 0.0,
+        "rms": 0.0
+      },
+      "physical_page_indices": [
+        0
+      ],
+      "reference_cpu_ms": 4.343633001553826,
+      "seed": 1729
+    },
+    {
+      "case": "singleton",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x7d0a72716020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 2.9802322387695312e-08,
+        "max_scaled_error": 1.0825683602888603e-05,
+        "p99_abs": 2.9504299448035454e-08,
+        "rms": 2.107342389479072e-08
+      },
+      "output": {
+        "max_abs": 0.0,
+        "max_scaled_error": 0.0,
+        "p99_abs": 0.0,
+        "rms": 0.0
+      },
+      "physical_page_indices": [
+        0
+      ],
+      "reference_cpu_ms": 3.813028997683432,
+      "seed": 2718
+    },
+    {
+      "case": "ragged-tails",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x7a4972b0e020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 0.0001773834228515625,
+        "max_scaled_error": 0.02207322046160698,
+        "p99_abs": 0.0001616191293578595,
+        "rms": 6.354017386911437e-05
+      },
+      "output": {
+        "max_abs": 0.000569462776184082,
+        "max_scaled_error": 0.07662343978881836,
+        "p99_abs": 0.00022876262664794922,
+        "rms": 7.182964327512309e-05
+      },
+      "physical_page_indices": [
+        4,
+        3,
+        0,
+        1,
+        5,
+        2
+      ],
+      "reference_cpu_ms": 91.58296199893812,
+      "seed": 1729
+    },
+    {
+      "case": "ragged-tails",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x7a4972b0e020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 0.0001823902130126953,
+        "max_scaled_error": 0.023401442915201187,
+        "p99_abs": 0.00017658231081441045,
+        "rms": 6.541376205859706e-05
+      },
+      "output": {
+        "max_abs": 0.0005127191543579102,
+        "max_scaled_error": 0.11008840799331665,
+        "p99_abs": 0.0002267771924380213,
+        "rms": 7.277441909536719e-05
+      },
+      "physical_page_indices": [
+        2,
+        1,
+        0,
+        4,
+        3,
+        5
+      ],
+      "reference_cpu_ms": 54.904628996155225,
+      "seed": 2718
+    },
+    {
+      "case": "window-zero",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x739b2cd3e020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 7.152557373046875e-07,
+        "max_scaled_error": 0.00010471361019881442,
+        "p99_abs": 6.699560799461324e-07,
+        "rms": 2.7315931561133766e-07
+      },
+      "output": {
+        "max_abs": 0.0,
+        "max_scaled_error": 0.0,
+        "p99_abs": 0.0,
+        "rms": 0.0
+      },
+      "physical_page_indices": [
+        1,
+        2,
+        0,
+        3
+      ],
+      "reference_cpu_ms": 62.49452300107805,
+      "seed": 1729
+    },
+    {
+      "case": "window-zero",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x739b2cd3e020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 4.76837158203125e-07,
+        "max_scaled_error": 0.000116206421807874,
+        "p99_abs": 4.76837158203125e-07,
+        "rms": 2.0949417489646294e-07
+      },
+      "output": {
+        "max_abs": 0.0,
+        "max_scaled_error": 0.0,
+        "p99_abs": 0.0,
+        "rms": 0.0
+      },
+      "physical_page_indices": [
+        2,
+        3,
+        1,
+        0
+      ],
+      "reference_cpu_ms": 65.66630799352424,
+      "seed": 2718
+    },
+    {
+      "case": "window-one",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x7aa35f72e020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 0.00021386146545410156,
+        "max_scaled_error": 0.0626843124628067,
+        "p99_abs": 0.00019789872749242932,
+        "rms": 0.00010638167441356927
+      },
+      "output": {
+        "max_abs": 0.0009510517120361328,
+        "max_scaled_error": 0.13496272265911102,
+        "p99_abs": 0.0004787564976140857,
+        "rms": 0.0001616685331100598
+      },
+      "physical_page_indices": [
+        2,
+        1,
+        0,
+        3
+      ],
+      "reference_cpu_ms": 81.77093099948252,
+      "seed": 1729
+    },
+    {
+      "case": "window-one",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x7aa35f72e020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 0.00020110607147216797,
+        "max_scaled_error": 0.06197183579206467,
+        "p99_abs": 0.00019856332801282406,
+        "rms": 0.00011445000563981012
+      },
+      "output": {
+        "max_abs": 0.0009136199951171875,
+        "max_scaled_error": 0.09041678160429001,
+        "p99_abs": 0.000477173482067883,
+        "rms": 0.00015845060988795012
+      },
+      "physical_page_indices": [
+        3,
+        2,
+        0,
+        1
+      ],
+      "reference_cpu_ms": 61.59953099995619,
+      "seed": 2718
+    },
+    {
+      "case": "window-page",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x76956ab0e020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 0.00015926361083984375,
+        "max_scaled_error": 0.014800100587308407,
+        "p99_abs": 0.00014657978317700326,
+        "rms": 6.929877417860553e-05
+      },
+      "output": {
+        "max_abs": 0.00044143199920654297,
+        "max_scaled_error": 0.07263593375682831,
+        "p99_abs": 0.00023538339883089066,
+        "rms": 7.707993790972978e-05
+      },
+      "physical_page_indices": [
+        2,
+        4,
+        0,
+        6,
+        3,
+        1,
+        5
+      ],
+      "reference_cpu_ms": 63.26933200034546,
+      "seed": 1729
+    },
+    {
+      "case": "window-page",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x76956ab0e020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 0.00020742416381835938,
+        "max_scaled_error": 0.018177885562181473,
+        "p99_abs": 0.00019927027460653335,
+        "rms": 7.218203245429322e-05
+      },
+      "output": {
+        "max_abs": 0.0005213022232055664,
+        "max_scaled_error": 0.07145967334508896,
+        "p99_abs": 0.00022799550788477063,
+        "rms": 7.631140033481643e-05
+      },
+      "physical_page_indices": [
+        5,
+        2,
+        0,
+        1,
+        4,
+        6,
+        3
+      ],
+      "reference_cpu_ms": 69.06874099513516,
+      "seed": 2718
+    },
+    {
+      "case": "equal-heads",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x741d50532020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 0.00015401840209960938,
+        "max_scaled_error": 0.015663515776395798,
+        "p99_abs": 0.00015200137568172067,
+        "rms": 5.8596255257725716e-05
+      },
+      "output": {
+        "max_abs": 0.0004843473434448242,
+        "max_scaled_error": 0.06625337153673172,
+        "p99_abs": 0.00023127556778490543,
+        "rms": 7.333880057558417e-05
+      },
+      "physical_page_indices": [
+        1,
+        2,
+        0
+      ],
+      "reference_cpu_ms": 76.14617999934126,
+      "seed": 1729
+    },
+    {
+      "case": "equal-heads",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x741d50532020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 0.00018405914306640625,
+        "max_scaled_error": 0.01682661660015583,
+        "p99_abs": 0.0001692676160018891,
+        "rms": 6.379353726515546e-05
+      },
+      "output": {
+        "max_abs": 0.0004121065139770508,
+        "max_scaled_error": 0.08535884320735931,
+        "p99_abs": 0.00023249653168022633,
+        "rms": 7.303942402359098e-05
+      },
+      "physical_page_indices": [
+        0,
+        1,
+        2
+      ],
+      "reference_cpu_ms": 71.6923170039081,
+      "seed": 2718
+    },
+    {
+      "case": "causal-prefill",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x75d17ab0e020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 0.0002467632293701172,
+        "max_scaled_error": 0.04740598052740097,
+        "p99_abs": 0.0002366602566326037,
+        "rms": 8.24428498162888e-05
+      },
+      "output": {
+        "max_abs": 0.0008153915405273438,
+        "max_scaled_error": 0.08366379141807556,
+        "p99_abs": 0.000272162607870996,
+        "rms": 8.347433322342113e-05
+      },
+      "physical_page_indices": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "reference_cpu_ms": 53.562341003271285,
+      "seed": 1729
+    },
+    {
+      "case": "causal-prefill",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x75d17ab0e020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 0.00021505355834960938,
+        "max_scaled_error": 0.07590935379266739,
+        "p99_abs": 0.00018394742801319808,
+        "rms": 7.280141289811581e-05
+      },
+      "output": {
+        "max_abs": 0.0008947849273681641,
+        "max_scaled_error": 0.09735020995140076,
+        "p99_abs": 0.00030088983476161957,
+        "rms": 9.093412518268451e-05
+      },
+      "physical_page_indices": [
+        1,
+        2,
+        0,
+        3
+      ],
+      "reference_cpu_ms": 65.27878400083864,
+      "seed": 2718
+    },
+    {
+      "case": "page-one",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x7440b1f46020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 0.0002932548522949219,
+        "max_scaled_error": 0.04842345416545868,
+        "p99_abs": 0.00027626033988781273,
+        "rms": 0.00011260017345193774
+      },
+      "output": {
+        "max_abs": 0.0006201267242431641,
+        "max_scaled_error": 0.07583098858594894,
+        "p99_abs": 0.0003865227336063981,
+        "rms": 0.00012220547068864107
+      },
+      "physical_page_indices": [
+        19,
+        25,
+        5,
+        24,
+        9,
+        11,
+        13,
+        23,
+        2,
+        14,
+        10,
+        12,
+        6,
+        3,
+        21,
+        15,
+        4,
+        22,
+        20,
+        17,
+        18,
+        0,
+        7,
+        1,
+        8,
+        16
+      ],
+      "reference_cpu_ms": 52.77051199664129,
+      "seed": 1729
+    },
+    {
+      "case": "page-one",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x7440b1f46020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 0.00019788742065429688,
+        "max_scaled_error": 0.03657687455415726,
+        "p99_abs": 0.00019466876983642578,
+        "rms": 0.00010311944060958922
+      },
+      "output": {
+        "max_abs": 0.000540614128112793,
+        "max_scaled_error": 0.0742296501994133,
+        "p99_abs": 0.0004252669750712812,
+        "rms": 0.0001224088919116184
+      },
+      "physical_page_indices": [
+        25,
+        4,
+        3,
+        19,
+        14,
+        24,
+        12,
+        17,
+        1,
+        20,
+        22,
+        9,
+        13,
+        6,
+        7,
+        18,
+        23,
+        11,
+        16,
+        0,
+        15,
+        8,
+        21,
+        2,
+        10,
+        5
+      ],
+      "reference_cpu_ms": 45.10834999382496,
+      "seed": 2718
+    },
+    {
+      "case": "longer-kv",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x76410420e020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 9.059906005859375e-05,
+        "max_scaled_error": 0.00553626986220479,
+        "p99_abs": 5.9776357375085354e-05,
+        "rms": 2.5185354388668202e-05
+      },
+      "output": {
+        "max_abs": 0.00014859437942504883,
+        "max_scaled_error": 0.03581155091524124,
+        "p99_abs": 6.918585859239101e-05,
+        "rms": 2.359690006414894e-05
+      },
+      "physical_page_indices": [
+        1,
+        2,
+        12,
+        25,
+        3,
+        17,
+        14,
+        11,
+        20,
+        21,
+        10,
+        16,
+        13,
+        24,
+        9,
+        22,
+        0,
+        4,
+        6,
+        18,
+        19,
+        7,
+        8,
+        15,
+        5,
+        23
+      ],
+      "reference_cpu_ms": 149.05823099979898,
+      "seed": 1729
+    },
+    {
+      "case": "longer-kv",
+      "dispatch": {
+        "actual": "fa2",
+        "disable_split_kv": true,
+        "dtype": "float16",
+        "flashinfer": "0.6.18.post1",
+        "layout": "NHD",
+        "lse_base": 2,
+        "module": "<class 'types.SimpleNamespace'>",
+        "requested": "fa2",
+        "run_callable": "<function get_batch_prefill_module.<locals>.paged_run at 0x76410420e020>"
+      },
+      "guards": "passed",
+      "lse": {
+        "max_abs": 7.62939453125e-05,
+        "max_scaled_error": 0.0046777925454080105,
+        "p99_abs": 5.825520202051848e-05,
+        "rms": 2.3183831217465922e-05
+      },
+      "output": {
+        "max_abs": 0.00018170475959777832,
+        "max_scaled_error": 0.04228049889206886,
+        "p99_abs": 6.783741991966963e-05,
+        "rms": 2.3047890863381326e-05
+      },
+      "physical_page_indices": [
+        13,
+        23,
+        12,
+        3,
+        5,
+        4,
+        0,
+        24,
+        7,
+        2,
+        1,
+        6,
+        21,
+        9,
+        8,
+        20,
+        17,
+        14,
+        11,
+        25,
+        18,
+        19,
+        16,
+        22,
+        15,
+        10
+      ],
+      "reference_cpu_ms": 136.29803799994988,
+      "seed": 2718
+    }
+  ],
+  "status": "passed",
+  "workers": [
+    {
+      "case": "singleton",
+      "environment": {
+        "git": {
+          "argv": [
+            "git",
+            "rev-parse",
+            "HEAD"
+          ],
+          "returncode": 128,
+          "stderr": "fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n",
+          "stdout": "HEAD\n"
+        },
+        "gpu": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,compute_cap,pstate,temperature.gpu,clocks.sm,clocks.mem,power.draw,power.limit,memory.total,memory.used",
+            "--format=csv"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "name, uuid, driver_version, compute_cap, pstate, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.draw [W], power.limit [W], memory.total [MiB], memory.used [MiB]\nNVIDIA GeForce RTX 4090, GPU-048ba00a-2056-d3c0-6309-91c78ab69d63, 595.84, 8.9, P2, 48, 2805 MHz, 10251 MHz, 129.65 W, 450.00 W, 24564 MiB, 10025 MiB\n"
+        },
+        "measurement_policy": {
+          "clock_changes": false,
+          "display_gpu": true,
+          "scope": "one GPU; unlocked clocks; no cross-architecture claim"
+        },
+        "nvcc": {
+          "argv": [
+            "nvcc",
+            "--version"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Fri_May_08_10:53:34_AM_PDT_2026\nCuda compilation tools, release 13.2, V13.2.86\nBuild cuda_13.2.r13.2/compiler.37953736_0\n"
+        },
+        "packages": {
+          "cuda-bindings": "13.2.0",
+          "cuda-python": "13.2.0",
+          "cupy-cuda13x": "14.2.0",
+          "flashinfer-python": "0.6.18.post1",
+          "numpy": "2.5.3",
+          "nvidia-cuda-runtime": "13.0.96",
+          "nvidia-cutlass-dsl": "4.7.1",
+          "pyarrow": "25.0.1",
+          "pylibcudf-cu13": "26.8.1",
+          "pytest": "9.1.1",
+          "rmm-cu13": "26.8.0",
+          "torch": "2.13.0",
+          "triton": "3.7.1"
+        },
+        "platform": "Linux-7.0.0-29-generic-x86_64-with-glibc2.43",
+        "python": "3.13.15 (main, Aug  7 2026, 02:25:50) [Clang 22.1.3 ]",
+        "source_digest": "c8e2d7bef7ed999a4974be477a3f3c3fc1d8ce991503f1619126ff45a73dba04",
+        "source_files": {
+          "attention.py": "4f6d4be28c43a5adf6597d313c4f875e0d4df7a7c95a7de8efac4ec62ac5e1b7",
+          "evidence.py": "35deb32fbea513d5b22c1fa1307b9b8e3c34c379918f4ef9c10935e7149cd15d",
+          "manifests/corpus.json": "bd7ce6856fc8aec3835de330d115a98856b755f4b1ad81a3209a4db565c8ae6d",
+          "manifests/project.json": "f19bf0269dd36b3192e7f9949fcc0dd186d2f446d034150f41bc2bafff01b08a",
+          "profile.py": "a134e3b50f4eaa56da241a1962303596ba7c7963b76d7c527d0052b28b654f7d",
+          "qualification.py": "9fede0b1dca0dd5df892e2ec03446295cd738a7fe133f3d3ca53d57e4d856ca2",
+          "reduce.py": "f5a1420ba2a5c3f3bc7ca0268c89a8962d080b23275097f92096f64c7aad2fc2",
+          "requirements.lock": "88f1a182980df753593b6779cc9ad70fcfc5aaf1fd4ffed658823c94a9950504",
+          "scripts/reproduce.sh": "a23f37d9305b49f30ac81c58d4c0a6da34d6e50cd0c326ea44b201b4ff3f4301",
+          "scripts/run.py": "4fff5ac535d28f856c1983a7df12f305c7fda68684e9e31cf23f7f53f25bb729",
+          "scripts/summarize.py": "ae072d95932ef9af7f3a0333b5f61f2f0ff7fd3f05a4a0947e14a5ab32ed0ca8",
+          "tests/test_evidence.py": "708ffbca5ab111b03109cf196ff96e9a0ba2c1a968bdee30d6ddd43bf4d138b2",
+          "tests/test_reference.py": "b5c444001a58e4b64db6af98a55fb472dddb9b9247478ed0d422d590236df602"
+        },
+        "utc": "2026-09-07T03:38:54.444444+00:00"
+      }
+    },
+    {
+      "case": "ragged-tails",
+      "environment": {
+        "git": {
+          "argv": [
+            "git",
+            "rev-parse",
+            "HEAD"
+          ],
+          "returncode": 128,
+          "stderr": "fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n",
+          "stdout": "HEAD\n"
+        },
+        "gpu": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,compute_cap,pstate,temperature.gpu,clocks.sm,clocks.mem,power.draw,power.limit,memory.total,memory.used",
+            "--format=csv"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "name, uuid, driver_version, compute_cap, pstate, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.draw [W], power.limit [W], memory.total [MiB], memory.used [MiB]\nNVIDIA GeForce RTX 4090, GPU-048ba00a-2056-d3c0-6309-91c78ab69d63, 595.84, 8.9, P2, 48, 2805 MHz, 10251 MHz, 116.23 W, 450.00 W, 24564 MiB, 10024 MiB\n"
+        },
+        "measurement_policy": {
+          "clock_changes": false,
+          "display_gpu": true,
+          "scope": "one GPU; unlocked clocks; no cross-architecture claim"
+        },
+        "nvcc": {
+          "argv": [
+            "nvcc",
+            "--version"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Fri_May_08_10:53:34_AM_PDT_2026\nCuda compilation tools, release 13.2, V13.2.86\nBuild cuda_13.2.r13.2/compiler.37953736_0\n"
+        },
+        "packages": {
+          "cuda-bindings": "13.2.0",
+          "cuda-python": "13.2.0",
+          "cupy-cuda13x": "14.2.0",
+          "flashinfer-python": "0.6.18.post1",
+          "numpy": "2.5.3",
+          "nvidia-cuda-runtime": "13.0.96",
+          "nvidia-cutlass-dsl": "4.7.1",
+          "pyarrow": "25.0.1",
+          "pylibcudf-cu13": "26.8.1",
+          "pytest": "9.1.1",
+          "rmm-cu13": "26.8.0",
+          "torch": "2.13.0",
+          "triton": "3.7.1"
+        },
+        "platform": "Linux-7.0.0-29-generic-x86_64-with-glibc2.43",
+        "python": "3.13.15 (main, Aug  7 2026, 02:25:50) [Clang 22.1.3 ]",
+        "source_digest": "c8e2d7bef7ed999a4974be477a3f3c3fc1d8ce991503f1619126ff45a73dba04",
+        "source_files": {
+          "attention.py": "4f6d4be28c43a5adf6597d313c4f875e0d4df7a7c95a7de8efac4ec62ac5e1b7",
+          "evidence.py": "35deb32fbea513d5b22c1fa1307b9b8e3c34c379918f4ef9c10935e7149cd15d",
+          "manifests/corpus.json": "bd7ce6856fc8aec3835de330d115a98856b755f4b1ad81a3209a4db565c8ae6d",
+          "manifests/project.json": "f19bf0269dd36b3192e7f9949fcc0dd186d2f446d034150f41bc2bafff01b08a",
+          "profile.py": "a134e3b50f4eaa56da241a1962303596ba7c7963b76d7c527d0052b28b654f7d",
+          "qualification.py": "9fede0b1dca0dd5df892e2ec03446295cd738a7fe133f3d3ca53d57e4d856ca2",
+          "reduce.py": "f5a1420ba2a5c3f3bc7ca0268c89a8962d080b23275097f92096f64c7aad2fc2",
+          "requirements.lock": "88f1a182980df753593b6779cc9ad70fcfc5aaf1fd4ffed658823c94a9950504",
+          "scripts/reproduce.sh": "a23f37d9305b49f30ac81c58d4c0a6da34d6e50cd0c326ea44b201b4ff3f4301",
+          "scripts/run.py": "4fff5ac535d28f856c1983a7df12f305c7fda68684e9e31cf23f7f53f25bb729",
+          "scripts/summarize.py": "ae072d95932ef9af7f3a0333b5f61f2f0ff7fd3f05a4a0947e14a5ab32ed0ca8",
+          "tests/test_evidence.py": "708ffbca5ab111b03109cf196ff96e9a0ba2c1a968bdee30d6ddd43bf4d138b2",
+          "tests/test_reference.py": "b5c444001a58e4b64db6af98a55fb472dddb9b9247478ed0d422d590236df602"
+        },
+        "utc": "2026-09-07T03:38:57.297579+00:00"
+      }
+    },
+    {
+      "case": "window-zero",
+      "environment": {
+        "git": {
+          "argv": [
+            "git",
+            "rev-parse",
+            "HEAD"
+          ],
+          "returncode": 128,
+          "stderr": "fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n",
+          "stdout": "HEAD\n"
+        },
+        "gpu": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,compute_cap,pstate,temperature.gpu,clocks.sm,clocks.mem,power.draw,power.limit,memory.total,memory.used",
+            "--format=csv"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "name, uuid, driver_version, compute_cap, pstate, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.draw [W], power.limit [W], memory.total [MiB], memory.used [MiB]\nNVIDIA GeForce RTX 4090, GPU-048ba00a-2056-d3c0-6309-91c78ab69d63, 595.84, 8.9, P2, 48, 2805 MHz, 10251 MHz, 125.98 W, 450.00 W, 24564 MiB, 10024 MiB\n"
+        },
+        "measurement_policy": {
+          "clock_changes": false,
+          "display_gpu": true,
+          "scope": "one GPU; unlocked clocks; no cross-architecture claim"
+        },
+        "nvcc": {
+          "argv": [
+            "nvcc",
+            "--version"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Fri_May_08_10:53:34_AM_PDT_2026\nCuda compilation tools, release 13.2, V13.2.86\nBuild cuda_13.2.r13.2/compiler.37953736_0\n"
+        },
+        "packages": {
+          "cuda-bindings": "13.2.0",
+          "cuda-python": "13.2.0",
+          "cupy-cuda13x": "14.2.0",
+          "flashinfer-python": "0.6.18.post1",
+          "numpy": "2.5.3",
+          "nvidia-cuda-runtime": "13.0.96",
+          "nvidia-cutlass-dsl": "4.7.1",
+          "pyarrow": "25.0.1",
+          "pylibcudf-cu13": "26.8.1",
+          "pytest": "9.1.1",
+          "rmm-cu13": "26.8.0",
+          "torch": "2.13.0",
+          "triton": "3.7.1"
+        },
+        "platform": "Linux-7.0.0-29-generic-x86_64-with-glibc2.43",
+        "python": "3.13.15 (main, Aug  7 2026, 02:25:50) [Clang 22.1.3 ]",
+        "source_digest": "c8e2d7bef7ed999a4974be477a3f3c3fc1d8ce991503f1619126ff45a73dba04",
+        "source_files": {
+          "attention.py": "4f6d4be28c43a5adf6597d313c4f875e0d4df7a7c95a7de8efac4ec62ac5e1b7",
+          "evidence.py": "35deb32fbea513d5b22c1fa1307b9b8e3c34c379918f4ef9c10935e7149cd15d",
+          "manifests/corpus.json": "bd7ce6856fc8aec3835de330d115a98856b755f4b1ad81a3209a4db565c8ae6d",
+          "manifests/project.json": "f19bf0269dd36b3192e7f9949fcc0dd186d2f446d034150f41bc2bafff01b08a",
+          "profile.py": "a134e3b50f4eaa56da241a1962303596ba7c7963b76d7c527d0052b28b654f7d",
+          "qualification.py": "9fede0b1dca0dd5df892e2ec03446295cd738a7fe133f3d3ca53d57e4d856ca2",
+          "reduce.py": "f5a1420ba2a5c3f3bc7ca0268c89a8962d080b23275097f92096f64c7aad2fc2",
+          "requirements.lock": "88f1a182980df753593b6779cc9ad70fcfc5aaf1fd4ffed658823c94a9950504",
+          "scripts/reproduce.sh": "a23f37d9305b49f30ac81c58d4c0a6da34d6e50cd0c326ea44b201b4ff3f4301",
+          "scripts/run.py": "4fff5ac535d28f856c1983a7df12f305c7fda68684e9e31cf23f7f53f25bb729",
+          "scripts/summarize.py": "ae072d95932ef9af7f3a0333b5f61f2f0ff7fd3f05a4a0947e14a5ab32ed0ca8",
+          "tests/test_evidence.py": "708ffbca5ab111b03109cf196ff96e9a0ba2c1a968bdee30d6ddd43bf4d138b2",
+          "tests/test_reference.py": "b5c444001a58e4b64db6af98a55fb472dddb9b9247478ed0d422d590236df602"
+        },
+        "utc": "2026-09-07T03:38:59.439906+00:00"
+      }
+    },
+    {
+      "case": "window-one",
+      "environment": {
+        "git": {
+          "argv": [
+            "git",
+            "rev-parse",
+            "HEAD"
+          ],
+          "returncode": 128,
+          "stderr": "fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n",
+          "stdout": "HEAD\n"
+        },
+        "gpu": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,compute_cap,pstate,temperature.gpu,clocks.sm,clocks.mem,power.draw,power.limit,memory.total,memory.used",
+            "--format=csv"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "name, uuid, driver_version, compute_cap, pstate, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.draw [W], power.limit [W], memory.total [MiB], memory.used [MiB]\nNVIDIA GeForce RTX 4090, GPU-048ba00a-2056-d3c0-6309-91c78ab69d63, 595.84, 8.9, P2, 48, 2805 MHz, 10251 MHz, 114.10 W, 450.00 W, 24564 MiB, 10024 MiB\n"
+        },
+        "measurement_policy": {
+          "clock_changes": false,
+          "display_gpu": true,
+          "scope": "one GPU; unlocked clocks; no cross-architecture claim"
+        },
+        "nvcc": {
+          "argv": [
+            "nvcc",
+            "--version"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Fri_May_08_10:53:34_AM_PDT_2026\nCuda compilation tools, release 13.2, V13.2.86\nBuild cuda_13.2.r13.2/compiler.37953736_0\n"
+        },
+        "packages": {
+          "cuda-bindings": "13.2.0",
+          "cuda-python": "13.2.0",
+          "cupy-cuda13x": "14.2.0",
+          "flashinfer-python": "0.6.18.post1",
+          "numpy": "2.5.3",
+          "nvidia-cuda-runtime": "13.0.96",
+          "nvidia-cutlass-dsl": "4.7.1",
+          "pyarrow": "25.0.1",
+          "pylibcudf-cu13": "26.8.1",
+          "pytest": "9.1.1",
+          "rmm-cu13": "26.8.0",
+          "torch": "2.13.0",
+          "triton": "3.7.1"
+        },
+        "platform": "Linux-7.0.0-29-generic-x86_64-with-glibc2.43",
+        "python": "3.13.15 (main, Aug  7 2026, 02:25:50) [Clang 22.1.3 ]",
+        "source_digest": "c8e2d7bef7ed999a4974be477a3f3c3fc1d8ce991503f1619126ff45a73dba04",
+        "source_files": {
+          "attention.py": "4f6d4be28c43a5adf6597d313c4f875e0d4df7a7c95a7de8efac4ec62ac5e1b7",
+          "evidence.py": "35deb32fbea513d5b22c1fa1307b9b8e3c34c379918f4ef9c10935e7149cd15d",
+          "manifests/corpus.json": "bd7ce6856fc8aec3835de330d115a98856b755f4b1ad81a3209a4db565c8ae6d",
+          "manifests/project.json": "f19bf0269dd36b3192e7f9949fcc0dd186d2f446d034150f41bc2bafff01b08a",
+          "profile.py": "a134e3b50f4eaa56da241a1962303596ba7c7963b76d7c527d0052b28b654f7d",
+          "qualification.py": "9fede0b1dca0dd5df892e2ec03446295cd738a7fe133f3d3ca53d57e4d856ca2",
+          "reduce.py": "f5a1420ba2a5c3f3bc7ca0268c89a8962d080b23275097f92096f64c7aad2fc2",
+          "requirements.lock": "88f1a182980df753593b6779cc9ad70fcfc5aaf1fd4ffed658823c94a9950504",
+          "scripts/reproduce.sh": "a23f37d9305b49f30ac81c58d4c0a6da34d6e50cd0c326ea44b201b4ff3f4301",
+          "scripts/run.py": "4fff5ac535d28f856c1983a7df12f305c7fda68684e9e31cf23f7f53f25bb729",
+          "scripts/summarize.py": "ae072d95932ef9af7f3a0333b5f61f2f0ff7fd3f05a4a0947e14a5ab32ed0ca8",
+          "tests/test_evidence.py": "708ffbca5ab111b03109cf196ff96e9a0ba2c1a968bdee30d6ddd43bf4d138b2",
+          "tests/test_reference.py": "b5c444001a58e4b64db6af98a55fb472dddb9b9247478ed0d422d590236df602"
+        },
+        "utc": "2026-09-07T03:39:01.948904+00:00"
+      }
+    },
+    {
+      "case": "window-page",
+      "environment": {
+        "git": {
+          "argv": [
+            "git",
+            "rev-parse",
+            "HEAD"
+          ],
+          "returncode": 128,
+          "stderr": "fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n",
+          "stdout": "HEAD\n"
+        },
+        "gpu": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,compute_cap,pstate,temperature.gpu,clocks.sm,clocks.mem,power.draw,power.limit,memory.total,memory.used",
+            "--format=csv"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "name, uuid, driver_version, compute_cap, pstate, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.draw [W], power.limit [W], memory.total [MiB], memory.used [MiB]\nNVIDIA GeForce RTX 4090, GPU-048ba00a-2056-d3c0-6309-91c78ab69d63, 595.84, 8.9, P2, 48, 2805 MHz, 10251 MHz, 121.64 W, 450.00 W, 24564 MiB, 10024 MiB\n"
+        },
+        "measurement_policy": {
+          "clock_changes": false,
+          "display_gpu": true,
+          "scope": "one GPU; unlocked clocks; no cross-architecture claim"
+        },
+        "nvcc": {
+          "argv": [
+            "nvcc",
+            "--version"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Fri_May_08_10:53:34_AM_PDT_2026\nCuda compilation tools, release 13.2, V13.2.86\nBuild cuda_13.2.r13.2/compiler.37953736_0\n"
+        },
+        "packages": {
+          "cuda-bindings": "13.2.0",
+          "cuda-python": "13.2.0",
+          "cupy-cuda13x": "14.2.0",
+          "flashinfer-python": "0.6.18.post1",
+          "numpy": "2.5.3",
+          "nvidia-cuda-runtime": "13.0.96",
+          "nvidia-cutlass-dsl": "4.7.1",
+          "pyarrow": "25.0.1",
+          "pylibcudf-cu13": "26.8.1",
+          "pytest": "9.1.1",
+          "rmm-cu13": "26.8.0",
+          "torch": "2.13.0",
+          "triton": "3.7.1"
+        },
+        "platform": "Linux-7.0.0-29-generic-x86_64-with-glibc2.43",
+        "python": "3.13.15 (main, Aug  7 2026, 02:25:50) [Clang 22.1.3 ]",
+        "source_digest": "c8e2d7bef7ed999a4974be477a3f3c3fc1d8ce991503f1619126ff45a73dba04",
+        "source_files": {
+          "attention.py": "4f6d4be28c43a5adf6597d313c4f875e0d4df7a7c95a7de8efac4ec62ac5e1b7",
+          "evidence.py": "35deb32fbea513d5b22c1fa1307b9b8e3c34c379918f4ef9c10935e7149cd15d",
+          "manifests/corpus.json": "bd7ce6856fc8aec3835de330d115a98856b755f4b1ad81a3209a4db565c8ae6d",
+          "manifests/project.json": "f19bf0269dd36b3192e7f9949fcc0dd186d2f446d034150f41bc2bafff01b08a",
+          "profile.py": "a134e3b50f4eaa56da241a1962303596ba7c7963b76d7c527d0052b28b654f7d",
+          "qualification.py": "9fede0b1dca0dd5df892e2ec03446295cd738a7fe133f3d3ca53d57e4d856ca2",
+          "reduce.py": "f5a1420ba2a5c3f3bc7ca0268c89a8962d080b23275097f92096f64c7aad2fc2",
+          "requirements.lock": "88f1a182980df753593b6779cc9ad70fcfc5aaf1fd4ffed658823c94a9950504",
+          "scripts/reproduce.sh": "a23f37d9305b49f30ac81c58d4c0a6da34d6e50cd0c326ea44b201b4ff3f4301",
+          "scripts/run.py": "4fff5ac535d28f856c1983a7df12f305c7fda68684e9e31cf23f7f53f25bb729",
+          "scripts/summarize.py": "ae072d95932ef9af7f3a0333b5f61f2f0ff7fd3f05a4a0947e14a5ab32ed0ca8",
+          "tests/test_evidence.py": "708ffbca5ab111b03109cf196ff96e9a0ba2c1a968bdee30d6ddd43bf4d138b2",
+          "tests/test_reference.py": "b5c444001a58e4b64db6af98a55fb472dddb9b9247478ed0d422d590236df602"
+        },
+        "utc": "2026-09-07T03:39:04.193608+00:00"
+      }
+    },
+    {
+      "case": "equal-heads",
+      "environment": {
+        "git": {
+          "argv": [
+            "git",
+            "rev-parse",
+            "HEAD"
+          ],
+          "returncode": 128,
+          "stderr": "fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n",
+          "stdout": "HEAD\n"
+        },
+        "gpu": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,compute_cap,pstate,temperature.gpu,clocks.sm,clocks.mem,power.draw,power.limit,memory.total,memory.used",
+            "--format=csv"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "name, uuid, driver_version, compute_cap, pstate, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.draw [W], power.limit [W], memory.total [MiB], memory.used [MiB]\nNVIDIA GeForce RTX 4090, GPU-048ba00a-2056-d3c0-6309-91c78ab69d63, 595.84, 8.9, P2, 48, 2805 MHz, 10251 MHz, 108.86 W, 450.00 W, 24564 MiB, 10024 MiB\n"
+        },
+        "measurement_policy": {
+          "clock_changes": false,
+          "display_gpu": true,
+          "scope": "one GPU; unlocked clocks; no cross-architecture claim"
+        },
+        "nvcc": {
+          "argv": [
+            "nvcc",
+            "--version"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Fri_May_08_10:53:34_AM_PDT_2026\nCuda compilation tools, release 13.2, V13.2.86\nBuild cuda_13.2.r13.2/compiler.37953736_0\n"
+        },
+        "packages": {
+          "cuda-bindings": "13.2.0",
+          "cuda-python": "13.2.0",
+          "cupy-cuda13x": "14.2.0",
+          "flashinfer-python": "0.6.18.post1",
+          "numpy": "2.5.3",
+          "nvidia-cuda-runtime": "13.0.96",
+          "nvidia-cutlass-dsl": "4.7.1",
+          "pyarrow": "25.0.1",
+          "pylibcudf-cu13": "26.8.1",
+          "pytest": "9.1.1",
+          "rmm-cu13": "26.8.0",
+          "torch": "2.13.0",
+          "triton": "3.7.1"
+        },
+        "platform": "Linux-7.0.0-29-generic-x86_64-with-glibc2.43",
+        "python": "3.13.15 (main, Aug  7 2026, 02:25:50) [Clang 22.1.3 ]",
+        "source_digest": "c8e2d7bef7ed999a4974be477a3f3c3fc1d8ce991503f1619126ff45a73dba04",
+        "source_files": {
+          "attention.py": "4f6d4be28c43a5adf6597d313c4f875e0d4df7a7c95a7de8efac4ec62ac5e1b7",
+          "evidence.py": "35deb32fbea513d5b22c1fa1307b9b8e3c34c379918f4ef9c10935e7149cd15d",
+          "manifests/corpus.json": "bd7ce6856fc8aec3835de330d115a98856b755f4b1ad81a3209a4db565c8ae6d",
+          "manifests/project.json": "f19bf0269dd36b3192e7f9949fcc0dd186d2f446d034150f41bc2bafff01b08a",
+          "profile.py": "a134e3b50f4eaa56da241a1962303596ba7c7963b76d7c527d0052b28b654f7d",
+          "qualification.py": "9fede0b1dca0dd5df892e2ec03446295cd738a7fe133f3d3ca53d57e4d856ca2",
+          "reduce.py": "f5a1420ba2a5c3f3bc7ca0268c89a8962d080b23275097f92096f64c7aad2fc2",
+          "requirements.lock": "88f1a182980df753593b6779cc9ad70fcfc5aaf1fd4ffed658823c94a9950504",
+          "scripts/reproduce.sh": "a23f37d9305b49f30ac81c58d4c0a6da34d6e50cd0c326ea44b201b4ff3f4301",
+          "scripts/run.py": "4fff5ac535d28f856c1983a7df12f305c7fda68684e9e31cf23f7f53f25bb729",
+          "scripts/summarize.py": "ae072d95932ef9af7f3a0333b5f61f2f0ff7fd3f05a4a0947e14a5ab32ed0ca8",
+          "tests/test_evidence.py": "708ffbca5ab111b03109cf196ff96e9a0ba2c1a968bdee30d6ddd43bf4d138b2",
+          "tests/test_reference.py": "b5c444001a58e4b64db6af98a55fb472dddb9b9247478ed0d422d590236df602"
+        },
+        "utc": "2026-09-07T03:39:06.833699+00:00"
+      }
+    },
+    {
+      "case": "causal-prefill",
+      "environment": {
+        "git": {
+          "argv": [
+            "git",
+            "rev-parse",
+            "HEAD"
+          ],
+          "returncode": 128,
+          "stderr": "fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n",
+          "stdout": "HEAD\n"
+        },
+        "gpu": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,compute_cap,pstate,temperature.gpu,clocks.sm,clocks.mem,power.draw,power.limit,memory.total,memory.used",
+            "--format=csv"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "name, uuid, driver_version, compute_cap, pstate, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.draw [W], power.limit [W], memory.total [MiB], memory.used [MiB]\nNVIDIA GeForce RTX 4090, GPU-048ba00a-2056-d3c0-6309-91c78ab69d63, 595.84, 8.9, P2, 48, 2805 MHz, 10251 MHz, 123.94 W, 450.00 W, 24564 MiB, 10024 MiB\n"
+        },
+        "measurement_policy": {
+          "clock_changes": false,
+          "display_gpu": true,
+          "scope": "one GPU; unlocked clocks; no cross-architecture claim"
+        },
+        "nvcc": {
+          "argv": [
+            "nvcc",
+            "--version"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Fri_May_08_10:53:34_AM_PDT_2026\nCuda compilation tools, release 13.2, V13.2.86\nBuild cuda_13.2.r13.2/compiler.37953736_0\n"
+        },
+        "packages": {
+          "cuda-bindings": "13.2.0",
+          "cuda-python": "13.2.0",
+          "cupy-cuda13x": "14.2.0",
+          "flashinfer-python": "0.6.18.post1",
+          "numpy": "2.5.3",
+          "nvidia-cuda-runtime": "13.0.96",
+          "nvidia-cutlass-dsl": "4.7.1",
+          "pyarrow": "25.0.1",
+          "pylibcudf-cu13": "26.8.1",
+          "pytest": "9.1.1",
+          "rmm-cu13": "26.8.0",
+          "torch": "2.13.0",
+          "triton": "3.7.1"
+        },
+        "platform": "Linux-7.0.0-29-generic-x86_64-with-glibc2.43",
+        "python": "3.13.15 (main, Aug  7 2026, 02:25:50) [Clang 22.1.3 ]",
+        "source_digest": "c8e2d7bef7ed999a4974be477a3f3c3fc1d8ce991503f1619126ff45a73dba04",
+        "source_files": {
+          "attention.py": "4f6d4be28c43a5adf6597d313c4f875e0d4df7a7c95a7de8efac4ec62ac5e1b7",
+          "evidence.py": "35deb32fbea513d5b22c1fa1307b9b8e3c34c379918f4ef9c10935e7149cd15d",
+          "manifests/corpus.json": "bd7ce6856fc8aec3835de330d115a98856b755f4b1ad81a3209a4db565c8ae6d",
+          "manifests/project.json": "f19bf0269dd36b3192e7f9949fcc0dd186d2f446d034150f41bc2bafff01b08a",
+          "profile.py": "a134e3b50f4eaa56da241a1962303596ba7c7963b76d7c527d0052b28b654f7d",
+          "qualification.py": "9fede0b1dca0dd5df892e2ec03446295cd738a7fe133f3d3ca53d57e4d856ca2",
+          "reduce.py": "f5a1420ba2a5c3f3bc7ca0268c89a8962d080b23275097f92096f64c7aad2fc2",
+          "requirements.lock": "88f1a182980df753593b6779cc9ad70fcfc5aaf1fd4ffed658823c94a9950504",
+          "scripts/reproduce.sh": "a23f37d9305b49f30ac81c58d4c0a6da34d6e50cd0c326ea44b201b4ff3f4301",
+          "scripts/run.py": "4fff5ac535d28f856c1983a7df12f305c7fda68684e9e31cf23f7f53f25bb729",
+          "scripts/summarize.py": "ae072d95932ef9af7f3a0333b5f61f2f0ff7fd3f05a4a0947e14a5ab32ed0ca8",
+          "tests/test_evidence.py": "708ffbca5ab111b03109cf196ff96e9a0ba2c1a968bdee30d6ddd43bf4d138b2",
+          "tests/test_reference.py": "b5c444001a58e4b64db6af98a55fb472dddb9b9247478ed0d422d590236df602"
+        },
+        "utc": "2026-09-07T03:39:09.251674+00:00"
+      }
+    },
+    {
+      "case": "page-one",
+      "environment": {
+        "git": {
+          "argv": [
+            "git",
+            "rev-parse",
+            "HEAD"
+          ],
+          "returncode": 128,
+          "stderr": "fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n",
+          "stdout": "HEAD\n"
+        },
+        "gpu": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,compute_cap,pstate,temperature.gpu,clocks.sm,clocks.mem,power.draw,power.limit,memory.total,memory.used",
+            "--format=csv"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "name, uuid, driver_version, compute_cap, pstate, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.draw [W], power.limit [W], memory.total [MiB], memory.used [MiB]\nNVIDIA GeForce RTX 4090, GPU-048ba00a-2056-d3c0-6309-91c78ab69d63, 595.84, 8.9, P2, 49, 2805 MHz, 10251 MHz, 115.89 W, 450.00 W, 24564 MiB, 10022 MiB\n"
+        },
+        "measurement_policy": {
+          "clock_changes": false,
+          "display_gpu": true,
+          "scope": "one GPU; unlocked clocks; no cross-architecture claim"
+        },
+        "nvcc": {
+          "argv": [
+            "nvcc",
+            "--version"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Fri_May_08_10:53:34_AM_PDT_2026\nCuda compilation tools, release 13.2, V13.2.86\nBuild cuda_13.2.r13.2/compiler.37953736_0\n"
+        },
+        "packages": {
+          "cuda-bindings": "13.2.0",
+          "cuda-python": "13.2.0",
+          "cupy-cuda13x": "14.2.0",
+          "flashinfer-python": "0.6.18.post1",
+          "numpy": "2.5.3",
+          "nvidia-cuda-runtime": "13.0.96",
+          "nvidia-cutlass-dsl": "4.7.1",
+          "pyarrow": "25.0.1",
+          "pylibcudf-cu13": "26.8.1",
+          "pytest": "9.1.1",
+          "rmm-cu13": "26.8.0",
+          "torch": "2.13.0",
+          "triton": "3.7.1"
+        },
+        "platform": "Linux-7.0.0-29-generic-x86_64-with-glibc2.43",
+        "python": "3.13.15 (main, Aug  7 2026, 02:25:50) [Clang 22.1.3 ]",
+        "source_digest": "c8e2d7bef7ed999a4974be477a3f3c3fc1d8ce991503f1619126ff45a73dba04",
+        "source_files": {
+          "attention.py": "4f6d4be28c43a5adf6597d313c4f875e0d4df7a7c95a7de8efac4ec62ac5e1b7",
+          "evidence.py": "35deb32fbea513d5b22c1fa1307b9b8e3c34c379918f4ef9c10935e7149cd15d",
+          "manifests/corpus.json": "bd7ce6856fc8aec3835de330d115a98856b755f4b1ad81a3209a4db565c8ae6d",
+          "manifests/project.json": "f19bf0269dd36b3192e7f9949fcc0dd186d2f446d034150f41bc2bafff01b08a",
+          "profile.py": "a134e3b50f4eaa56da241a1962303596ba7c7963b76d7c527d0052b28b654f7d",
+          "qualification.py": "9fede0b1dca0dd5df892e2ec03446295cd738a7fe133f3d3ca53d57e4d856ca2",
+          "reduce.py": "f5a1420ba2a5c3f3bc7ca0268c89a8962d080b23275097f92096f64c7aad2fc2",
+          "requirements.lock": "88f1a182980df753593b6779cc9ad70fcfc5aaf1fd4ffed658823c94a9950504",
+          "scripts/reproduce.sh": "a23f37d9305b49f30ac81c58d4c0a6da34d6e50cd0c326ea44b201b4ff3f4301",
+          "scripts/run.py": "4fff5ac535d28f856c1983a7df12f305c7fda68684e9e31cf23f7f53f25bb729",
+          "scripts/summarize.py": "ae072d95932ef9af7f3a0333b5f61f2f0ff7fd3f05a4a0947e14a5ab32ed0ca8",
+          "tests/test_evidence.py": "708ffbca5ab111b03109cf196ff96e9a0ba2c1a968bdee30d6ddd43bf4d138b2",
+          "tests/test_reference.py": "b5c444001a58e4b64db6af98a55fb472dddb9b9247478ed0d422d590236df602"
+        },
+        "utc": "2026-09-07T03:39:11.858625+00:00"
+      }
+    },
+    {
+      "case": "longer-kv",
+      "environment": {
+        "git": {
+          "argv": [
+            "git",
+            "rev-parse",
+            "HEAD"
+          ],
+          "returncode": 128,
+          "stderr": "fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n",
+          "stdout": "HEAD\n"
+        },
+        "gpu": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,compute_cap,pstate,temperature.gpu,clocks.sm,clocks.mem,power.draw,power.limit,memory.total,memory.used",
+            "--format=csv"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "name, uuid, driver_version, compute_cap, pstate, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.draw [W], power.limit [W], memory.total [MiB], memory.used [MiB]\nNVIDIA GeForce RTX 4090, GPU-048ba00a-2056-d3c0-6309-91c78ab69d63, 595.84, 8.9, P2, 48, 2805 MHz, 10251 MHz, 108.85 W, 450.00 W, 24564 MiB, 10022 MiB\n"
+        },
+        "measurement_policy": {
+          "clock_changes": false,
+          "display_gpu": true,
+          "scope": "one GPU; unlocked clocks; no cross-architecture claim"
+        },
+        "nvcc": {
+          "argv": [
+            "nvcc",
+            "--version"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Fri_May_08_10:53:34_AM_PDT_2026\nCuda compilation tools, release 13.2, V13.2.86\nBuild cuda_13.2.r13.2/compiler.37953736_0\n"
+        },
+        "packages": {
+          "cuda-bindings": "13.2.0",
+          "cuda-python": "13.2.0",
+          "cupy-cuda13x": "14.2.0",
+          "flashinfer-python": "0.6.18.post1",
+          "numpy": "2.5.3",
+          "nvidia-cuda-runtime": "13.0.96",
+          "nvidia-cutlass-dsl": "4.7.1",
+          "pyarrow": "25.0.1",
+          "pylibcudf-cu13": "26.8.1",
+          "pytest": "9.1.1",
+          "rmm-cu13": "26.8.0",
+          "torch": "2.13.0",
+          "triton": "3.7.1"
+        },
+        "platform": "Linux-7.0.0-29-generic-x86_64-with-glibc2.43",
+        "python": "3.13.15 (main, Aug  7 2026, 02:25:50) [Clang 22.1.3 ]",
+        "source_digest": "c8e2d7bef7ed999a4974be477a3f3c3fc1d8ce991503f1619126ff45a73dba04",
+        "source_files": {
+          "attention.py": "4f6d4be28c43a5adf6597d313c4f875e0d4df7a7c95a7de8efac4ec62ac5e1b7",
+          "evidence.py": "35deb32fbea513d5b22c1fa1307b9b8e3c34c379918f4ef9c10935e7149cd15d",
+          "manifests/corpus.json": "bd7ce6856fc8aec3835de330d115a98856b755f4b1ad81a3209a4db565c8ae6d",
+          "manifests/project.json": "f19bf0269dd36b3192e7f9949fcc0dd186d2f446d034150f41bc2bafff01b08a",
+          "profile.py": "a134e3b50f4eaa56da241a1962303596ba7c7963b76d7c527d0052b28b654f7d",
+          "qualification.py": "9fede0b1dca0dd5df892e2ec03446295cd738a7fe133f3d3ca53d57e4d856ca2",
+          "reduce.py": "f5a1420ba2a5c3f3bc7ca0268c89a8962d080b23275097f92096f64c7aad2fc2",
+          "requirements.lock": "88f1a182980df753593b6779cc9ad70fcfc5aaf1fd4ffed658823c94a9950504",
+          "scripts/reproduce.sh": "a23f37d9305b49f30ac81c58d4c0a6da34d6e50cd0c326ea44b201b4ff3f4301",
+          "scripts/run.py": "4fff5ac535d28f856c1983a7df12f305c7fda68684e9e31cf23f7f53f25bb729",
+          "scripts/summarize.py": "ae072d95932ef9af7f3a0333b5f61f2f0ff7fd3f05a4a0947e14a5ab32ed0ca8",
+          "tests/test_evidence.py": "708ffbca5ab111b03109cf196ff96e9a0ba2c1a968bdee30d6ddd43bf4d138b2",
+          "tests/test_reference.py": "b5c444001a58e4b64db6af98a55fb472dddb9b9247478ed0d422d590236df602"
+        },
+        "utc": "2026-09-07T03:39:14.871082+00:00"
+      }
+    }
+  ]
+}

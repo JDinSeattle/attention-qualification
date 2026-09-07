@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "backend": "fa2",
+  "flashinfer": "0.6.18.post1",
+  "layout": "NHD",
+  "dtype": "float16",
+  "lse_base": 2,
+  "seeds": [
+    1729,
+    2718
+  ],
+  "cases": [
+    {
+      "id": "singleton",
+      "qo": [
+        1
+      ],
+      "kv": [
+        1
+      ],
+      "hq": 2,
+      "hkv": 1,
+      "d": 64,
+      "page": 1,
+      "scale": 0.125,
+      "window": -1
+    },
+    {
+      "id": "ragged-tails",
+      "qo": [
+        1,
+        3,
+        7
+      ],
+      "kv": [
+        5,
+        17,
+        33
+      ],
+      "hq": 8,
+      "hkv": 2,
+      "d": 64,
+      "page": 16,
+      "scale": 0.17,
+      "window": -1
+    },
+    {
+      "id": "window-zero",
+      "qo": [
+        2,
+        3
+      ],
+      "kv": [
+        17,
+        31
+      ],
+      "hq": 4,
+      "hkv": 2,
+      "d": 64,
+      "page": 16,
+      "scale": 0.2,
+      "window": 0
+    },
+    {
+      "id": "window-one",
+      "qo": [
+        3,
+        7
+      ],
+      "kv": [
+        16,
+        33
+      ],
+      "hq": 8,
+      "hkv": 2,
+      "d": 64,
+      "page": 16,
+      "scale": 0.07,
+      "window": 1
+    },
+    {
+      "id": "window-page",
+      "qo": [
+        3,
+        9
+      ],
+      "kv": [
+        32,
+        65
+      ],
+      "hq": 8,
+      "hkv": 2,
+      "d": 128,
+      "page": 16,
+      "scale": 0.11,
+      "window": 16
+    },
+    {
+      "id": "equal-heads",
+      "qo": [
+        4,
+        8
+      ],
+      "kv": [
+        16,
+        31
+      ],
+      "hq": 4,
+      "hkv": 4,
+      "d": 64,
+      "page": 16,
+      "scale": 0.21,
+      "window": -1
+    },
+    {
+      "id": "causal-prefill",
+      "qo": [
+        17,
+        32
+      ],
+      "kv": [
+        17,
+        32
+      ],
+      "hq": 4,
+      "hkv": 1,
+      "d": 128,
+      "page": 16,
+      "scale": 0.09,
+      "window": -1
+    },
+    {
+      "id": "page-one",
+      "qo": [
+        2,
+        5
+      ],
+      "kv": [
+        7,
+        19
+      ],
+      "hq": 4,
+      "hkv": 1,
+      "d": 64,
+      "page": 1,
+      "scale": 0.13,
+      "window": 3
+    },
+    {
+      "id": "longer-kv",
+      "qo": [
+        16,
+        32
+      ],
+      "kv": [
+        129,
+        257
+      ],
+      "hq": 8,
+      "hkv": 2,
+      "d": 128,
+      "page": 16,
+      "scale": 0.08,
+      "window": -1
+    }
+  ],
+  "exclusions": [
+    "zero-length sequences",
+    "qo_len > kv_len",
+    "all-masked rows",
+    "FP8/FP4 quantization",
+    "custom masks",
+    "RoPE",
+    "non-FA2 backends",
+    "automatic split-KV merge path (sanitizer registration diagnostic)"
+  ],
+  "process_contract": "One case per worker; FA2 with disable_split_kv=True",
+  "disable_split_kv": true
+}

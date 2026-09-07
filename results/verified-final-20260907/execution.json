@@ -1,0 +1,118 @@
+{
+  "environment": {
+    "git": {
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "returncode": 128,
+      "stderr": "fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n",
+      "stdout": "HEAD\n"
+    },
+    "gpu": {
+      "argv": [
+        "nvidia-smi",
+        "--query-gpu=name,uuid,driver_version,compute_cap,pstate,temperature.gpu,clocks.sm,clocks.mem,power.draw,power.limit,memory.total,memory.used",
+        "--format=csv"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "name, uuid, driver_version, compute_cap, pstate, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.draw [W], power.limit [W], memory.total [MiB], memory.used [MiB]\nNVIDIA GeForce RTX 4090, GPU-048ba00a-2056-d3c0-6309-91c78ab69d63, 595.84, 8.9, P2, 44, 2520 MHz, 10251 MHz, 65.21 W, 450.00 W, 24564 MiB, 9477 MiB\n"
+    },
+    "measurement_policy": {
+      "clock_changes": false,
+      "display_gpu": true,
+      "scope": "one GPU; unlocked clocks; no cross-architecture claim"
+    },
+    "nvcc": {
+      "argv": [
+        "nvcc",
+        "--version"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Fri_May_08_10:53:34_AM_PDT_2026\nCuda compilation tools, release 13.2, V13.2.86\nBuild cuda_13.2.r13.2/compiler.37953736_0\n"
+    },
+    "packages": {
+      "cuda-bindings": "13.2.0",
+      "cuda-python": "13.2.0",
+      "cupy-cuda13x": "14.2.0",
+      "flashinfer-python": "0.6.18.post1",
+      "numpy": "2.5.3",
+      "nvidia-cuda-runtime": "13.0.96",
+      "nvidia-cutlass-dsl": "4.7.1",
+      "pyarrow": "25.0.1",
+      "pylibcudf-cu13": "26.8.1",
+      "pytest": "9.1.1",
+      "rmm-cu13": "26.8.0",
+      "torch": "2.13.0",
+      "triton": "3.7.1"
+    },
+    "platform": "Linux-7.0.0-29-generic-x86_64-with-glibc2.43",
+    "python": "3.13.15 (main, Aug  7 2026, 02:25:50) [Clang 22.1.3 ]",
+    "source_digest": "fcbb00f1ee64682746f4d02c6a81398805c491236d8cdc9bfca0cead54294a04",
+    "source_files": {
+      "attention.py": "fe1d849554b60c5304077eb9ae1a0e09b91441e5ba0bc4bf4b34c302a48050c2",
+      "evidence.py": "35deb32fbea513d5b22c1fa1307b9b8e3c34c379918f4ef9c10935e7149cd15d",
+      "manifests/corpus.json": "d1acba3d624b4b8502ad651fde1fa2aca38b1637e2c504e02324265adbe1b5e0",
+      "manifests/project.json": "f19bf0269dd36b3192e7f9949fcc0dd186d2f446d034150f41bc2bafff01b08a",
+      "profile.py": "a134e3b50f4eaa56da241a1962303596ba7c7963b76d7c527d0052b28b654f7d",
+      "qualification.py": "b709d3bfb855dcdaa7c1aaeb10d0de1dad06b593b9c51914306f4d745c82e80b",
+      "reduce.py": "f5a1420ba2a5c3f3bc7ca0268c89a8962d080b23275097f92096f64c7aad2fc2",
+      "requirements.lock": "88f1a182980df753593b6779cc9ad70fcfc5aaf1fd4ffed658823c94a9950504",
+      "scripts/reproduce.sh": "a23f37d9305b49f30ac81c58d4c0a6da34d6e50cd0c326ea44b201b4ff3f4301",
+      "scripts/run.py": "4fff5ac535d28f856c1983a7df12f305c7fda68684e9e31cf23f7f53f25bb729",
+      "scripts/summarize.py": "879efdd5cc00b534ddb78bcc5f08c75dfa120fbf2785bb3cf43d2b0365564e7d",
+      "tests/test_evidence.py": "708ffbca5ab111b03109cf196ff96e9a0ba2c1a968bdee30d6ddd43bf4d138b2",
+      "tests/test_reference.py": "b5c444001a58e4b64db6af98a55fb472dddb9b9247478ed0d422d590236df602"
+    },
+    "utc": "2026-09-07T03:33:05.659857+00:00"
+  },
+  "status": "failed",
+  "steps": [
+    {
+      "argv": [
+        "/tmp/kernels-qualification-env/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--junitxml=/home/postedism/Desktop/kernal libraries/C-attention-qualification/results/verified-final-20260907/cpu.xml"
+      ],
+      "elapsed_s": 1.3168560289996094,
+      "returncode": 0,
+      "step": "cpu-tests"
+    },
+    {
+      "argv": [
+        "/tmp/kernels-qualification-env/bin/python",
+        "qualification.py",
+        "check",
+        "--output",
+        "/home/postedism/Desktop/kernal libraries/C-attention-qualification/results/verified-final-20260907/gpu-check.json"
+      ],
+      "elapsed_s": 2.3695754290019977,
+      "returncode": 0,
+      "step": "gpu-check"
+    },
+    {
+      "argv": [
+        "compute-sanitizer",
+        "--tool",
+        "memcheck",
+        "--error-exitcode",
+        "99",
+        "--target-processes",
+        "all",
+        "/tmp/kernels-qualification-env/bin/python",
+        "qualification.py",
+        "check",
+        "--output",
+        "/home/postedism/Desktop/kernal libraries/C-attention-qualification/results/verified-final-20260907/sanitizer-check.json"
+      ],
+      "elapsed_s": 3.8294854749983642,
+      "returncode": 99,
+      "step": "gpu-memcheck"
+    }
+  ]
+}
